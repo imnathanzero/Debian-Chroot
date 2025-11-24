@@ -1,6 +1,5 @@
 # Changelog
 
-## v4.1 (2025-11-21)
+## v4.1.1 (2025-11-24)
 
-- rootfs: fixed issues where the custom aliases are not available in non-login shells
-- webui: fixed the status bar in high DPI screens
+- Added Debian Trixie Support

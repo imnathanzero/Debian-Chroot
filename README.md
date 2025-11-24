@@ -1,16 +1,15 @@
-<img src="Screenshots/banner.png" alt="Ubuntu Chroot banner" width="900" />
+<img src="Screenshots/banner.png" alt="Debian Chroot banner" width="900" />
 
-[![Latest release](https://img.shields.io/github/v/release/ravindu644/ubuntu-chroot?label=Latest%20Release&style=for-the-badge)](https://github.com/ravindu644/ubuntu-chroot/releases/latest)
-[![Telegram channel](https://img.shields.io/badge/Telegram-Channel-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/SamsungTweaks)
+[![Latest release](https://img.shields.io/github/v/release/imnathanzero/debian-chroot?label=Latest%20Release&style=for-the-badge)](https://github.com/imnathanzero/debian-chroot/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
 [![Android support](https://img.shields.io/badge/-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](#requirements)
 [![Linux desktop](https://img.shields.io/badge/-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](#why-this-is-different)
 
 ---
 
-# 🟠 Ubuntu-Chroot
+# 🟠 Debian-Chroot
 
-A comprehensive Android Linux environment featuring **Ubuntu 24.04** with a built-in WebUI Control Panel, Beautiful desktop environment, advanced namespace isolation, and in-built development tools for a seamless Linux desktop experience on Android - **with full hardware access and x86_64 emulation**.
+A comprehensive Android Linux environment featuring **Debian Trixie** with a built-in WebUI Control Panel, Beautiful desktop environment, advanced namespace isolation, and in-built development tools for a seamless Linux desktop experience on Android - **with full hardware access and x86_64 emulation**.
 
 #### Quick Navigation
 
@@ -84,7 +83,7 @@ A comprehensive Android Linux environment featuring **Ubuntu 24.04** with a buil
 - No complex terminal commands required. The desktop environment starts automatically when the chroot launches, and most developer tools are preconfigured and ready to use out of the box.
 
 **Containerization Ready**  
-- When you flash the module, it extracts the Ubuntu rootfs to `/data/local/ubuntu-chroot`, which the backend uses as the installed rootfs.
+- When you flash the module, it extracts the Debian rootfs to `/data/local/debian-chroot`, which the backend uses as the installed rootfs.
 
 - Under **Experimental Features** in the WebUI, you can migrate your directory-based chroot to an ext4 sparse image, containerizing your environment into a single `.img` file.
 - The Linux environment runs on an ext4 image outside Android partitions, benefiting from improved I/O, caching, and flexibility.
@@ -97,12 +96,12 @@ A comprehensive Android Linux environment featuring **Ubuntu 24.04** with a buil
 <summary><strong>📸 Desktop Screenshots (click to expand)</strong></summary>
 
 <p align="center">
-  <img src="Screenshots/landscape.png" alt="Ubuntu Chroot desktop landscape" width="800" />
+  <img src="Screenshots/landscape.png" alt="Debian Chroot desktop landscape" width="800" />
   <br><em>Landscape mode</em>
 </p>
 
 <p align="center">
-  <img src="Screenshots/portrait.jpg" alt="Ubuntu Chroot desktop portrait" width="350" />
+  <img src="Screenshots/portrait.jpg" alt="Debian Chroot desktop portrait" width="350" />
   <br><em>Portrait mode</em>
 </p>
 
@@ -166,7 +165,7 @@ A comprehensive Android Linux environment featuring **Ubuntu 24.04** with a buil
 <a id="installation"></a>
 ## 🚀 Installation
 
-1. Download the latest release from [GitHub releases](https://github.com/ravindu644/ubuntu-chroot/releases)
+1. Download the latest release from [GitHub releases](https://github.com/imnathanzero/debian-chroot/releases)
 2. Flash the ZIP file using APatch/KernelSU managers
 3. Reboot your device
 
@@ -456,12 +455,9 @@ CONFIG_SYSVIPC_SYSCTL=y
 <a id="credits"></a>
 ## 🙏 Credits
 
-- [Ubuntu](https://ubuntu.com/) - The core
-- [Kali NetHunter project](https://gitlab.com/kalilinux/nethunter) for my own understanding of chroot and sysctl commands
-- [Chroot-distro](https://github.com/Magisk-Modules-Alt-Repo/chroot-distro) for the internet connectivity fix in initial versions
-- [docker-systemctl-replacement](https://github.com/gdraheim/docker-systemctl-replacement) for [systemctl](./Docker/scripts/systemctl3.py) implementation in chroot
-- [optimizer](https://github.com/OptimizerS1) for the cool banner design :)
-- [Maxim-Root](https://github.com/Maxim-Root) for providing me with a server and additional resources for the project
+- [Here (redirected to ravindu644 github repo)](https://github.com/ravindu644/Ubuntu-Chroot?tab=readme-ov-file#-credits)
+- [Debian Linux](https://www.debian.org/) the core
+- [ravindu644](https://github.com/ravindu644) for base project
 
 <a id="license"></a>
 ## 📜 License

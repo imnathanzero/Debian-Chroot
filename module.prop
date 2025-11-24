@@ -1,4 +1,4 @@
-id=ubuntu-chroot
-name=Ubuntu Chroot
-author=ravindu644
-description=A module for installing Ubuntu 24.04 rootfs on Android and managing it with a modern WebUI, featuring full hardware access and proper namespace isolation
+id=debian-chroot
+name=Debian Chroot
+author=ravindu644, imnathanzero
+description=A module for installing Debian Trixie rootfs on Android and managing it with a modern WebUI, featuring full hardware access and proper namespace isolation

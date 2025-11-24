@@ -50,7 +50,7 @@ If applicable, add screenshots to help explain your problem.
 1. Open the WebUI and go to **Settings** → **Optional** section
 2. Enable **Debug Mode**
 3. Reproduce the issue
-4. Zip the `/data/local/ubuntu-chroot/logs` folder
+4. Zip the `/data/local/debian-chroot/logs` folder
 5. Attach the zip file to this issue
 
 ## Additional Context

@@ -1,10 +1,10 @@
 #!/system/bin/sh
 
-# Ubuntu Chroot Installation Functions
+# Debian Chroot Installation Functions
 # Clean, minimal implementation
 
 TMPDIR=/dev/tmp
-CHROOT_DIR="/data/local/ubuntu-chroot"
+CHROOT_DIR="/data/local/debian-chroot"
 VERSION_FILE="$CHROOT_DIR/version"
 
 # Detect root method
@@ -53,9 +53,9 @@ setup_ota() {
         local version_code
 
         # Check if module was previously installed
-        if [ -f "/data/adb/modules/ubuntu-chroot/module.prop" ]; then
+        if [ -f "/data/adb/modules/debian-chroot/module.prop" ]; then
             # Record OLD version from existing installation for proper OTA tracking
-            version_code=$(grep "^versionCode=" "/data/adb/modules/ubuntu-chroot/module.prop" | cut -d'=' -f2)
+            version_code=$(grep "^versionCode=" "/data/adb/modules/debian-chroot/module.prop" | cut -d'=' -f2)
             echo "- Recording previous version $version_code for OTA updates"
         else
             # Fresh install - record version from zip file
@@ -78,7 +78,7 @@ find_rootfs_file() {
 
 # Extract rootfs
 extract_rootfs() {
-    echo "- Setting up Ubuntu rootfs..."
+    echo "- Setting up Debian rootfs..."
 
     # Extract experimental config
     if unzip -oj "$ZIPFILE" 'experimental.conf' -d "$MODPATH" >&2 2>/dev/null; then
@@ -124,13 +124,13 @@ extract_traditional() {
         return 0
     fi
 
-    echo "- Extracting Ubuntu rootfs..."
+    echo "- Extracting Debian rootfs..."
 
     # Create directory and extract
     mkdir -p "$rootfs_dir" "$TMPDIR"
     if unzip -oq "$ZIPFILE" "$rootfs_file" -d "$TMPDIR" && tar -xpf "$TMPDIR/$rootfs_file" -C "$rootfs_dir"; then
         unzip -oj "$ZIPFILE" 'tools/post_exec.sh' -d "$CHROOT_DIR" >&2
-        echo "- Ubuntu rootfs extracted successfully"
+        echo "- Debian rootfs extracted successfully"
         return 0
     else
         echo "- Rootfs extraction failed"
@@ -160,7 +160,7 @@ extract_sparse() {
         echo "- Built-in truncate failed, trying busybox truncate..."
         busybox truncate -s "${SPARSE_IMAGE_SIZE}G" "$img_file" || return 1
     fi
-    mkfs.ext4 -F -L "ubuntu-chroot" "$img_file" || {
+    mkfs.ext4 -F -L "debian-chroot" "$img_file" || {
         rm -f "$img_file"
         return 1
     }
@@ -176,7 +176,7 @@ extract_sparse() {
     mkdir -p "$TMPDIR"
     echo -e "\n- Extracting rootfs to sparse image..."
     if unzip -oq "$ZIPFILE" "$rootfs_file" -d "$TMPDIR" && tar -xpf "$TMPDIR/$rootfs_file" -C "$rootfs_dir"; then
-        echo "- Ubuntu rootfs extracted to sparse image"
+        echo "- Debian rootfs extracted to sparse image"
         umount "$rootfs_dir"
         unzip -oj "$ZIPFILE" 'tools/post_exec.sh' -d "$CHROOT_DIR" >&2
         echo "- Sparse image setup completed"
@@ -192,10 +192,10 @@ extract_sparse() {
 # Create command symlink
 create_symlink() {
     mkdir -p "$MODPATH/system/bin"
-    if ln -sf "$CHROOT_DIR/chroot.sh" "$MODPATH/system/bin/ubuntu-chroot"; then
-        echo "- Created symlink for 'ubuntu-chroot' command"
+    if ln -sf "$CHROOT_DIR/chroot.sh" "$MODPATH/system/bin/debian-chroot"; then
+        echo "- Created symlink for 'debian-chroot' command"
     else
-        echo "- Failed to create symlink for 'ubuntu-chroot' command"
+        echo "- Failed to create symlink for 'debian-chroot' command"
         exit 1
     fi
 }

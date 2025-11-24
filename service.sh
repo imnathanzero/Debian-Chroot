@@ -3,9 +3,9 @@
 # Runs on boot after system is ready
 
 MODDIR=${0%/*}
-CHROOT_SH="/data/local/ubuntu-chroot/chroot.sh"
-BOOT_FLAG="/data/local/ubuntu-chroot/boot-service"
-LOG_FILE="/data/local/ubuntu-chroot/boot-service.log"
+CHROOT_SH="/data/local/debian-chroot/chroot.sh"
+BOOT_FLAG="/data/local/debian-chroot/boot-service"
+LOG_FILE="/data/local/debian-chroot/boot-service.log"
 
 # Wait for boot to complete
 while [ "$(getprop sys.boot_completed)" != "1" ]; do

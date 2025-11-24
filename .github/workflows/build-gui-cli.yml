@@ -117,7 +117,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt update && sudo apt install -y rsync python3
 
-      - name: Build Ubuntu RootFS
+      - name: Build Debian RootFS
         if: ${{ !inputs.only_build_update_zip }}
         run: |
           cd Docker
@@ -141,7 +141,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.name }}-full-zip
-          path: out/Ubuntu-Chroot-${{ github.event.inputs.version || github.ref_name }}-*${{ matrix.suffix }}.zip
+          path: out/Debian-Chroot-${{ github.event.inputs.version || github.ref_name }}-*${{ matrix.suffix }}.zip
 
   release:
     if: ${{ !inputs.update_jsons_only }}
@@ -159,7 +159,7 @@ jobs:
           artifacts: "./zips/**/*.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.event.inputs.version || github.ref_name }}
-          name: "Ubuntu Chroot ${{ github.event.inputs.version || github.ref_name }}"
+          name: "Debian Chroot ${{ github.event.inputs.version || github.ref_name }}"
           body: ${{ needs.prepare-changelog.outputs.changelog_body }}
           draft: false
           prerelease: false

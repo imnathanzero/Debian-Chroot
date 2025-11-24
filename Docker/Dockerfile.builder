@@ -1,6 +1,5 @@
-# Dockerfile.builder
 # Stage 1: Build and customize the rootfs for development
-FROM --platform=linux/arm64 ubuntu:24.04 AS customizer
+FROM --platform=linux/arm64 debian:trixie AS customizer
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -10,30 +9,14 @@ RUN apt-get update && apt-get upgrade -y && \
     # Add amd64 architecture
     dpkg --add-architecture amd64 && \
     # Nuke the default sources.list and create a new multi-arch one.
-    rm /etc/apt/sources.list && \
+    rm -f /etc/apt/sources.list && \
     rm -rf /etc/apt/sources.list.d/* && \
     cat > /etc/apt/sources.list << EOF
-# For arm64 (native architecture)
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse
-
-# For amd64 (the foreign architecture) - ONLY include the 'main' component
-deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble main
-deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-updates main
-deb [arch=amd64] http://security.ubuntu.com/ubuntu/ noble-backports main
-deb [arch=amd64] http://security.ubuntu.com/ubuntu/ noble-security main
-EOF
-
-RUN cat > /etc/apt/preferences.d/99-multiarch-pinning << EOF
-Package: *
-Pin: origin "ports.ubuntu.com"
-Pin-Priority: 1001
-
-Package: *
-Pin: origin "archive.ubuntu.com"
-Pin-Priority: 500
+# Debian Trixie (Stable/Testing) Repositories
+# We must include 'non-free' for packages like hfsprogs
+deb [arch=arm64,amd64] http://deb.debian.org/debian trixie main contrib non-free non-free-firmware
+deb [arch=arm64,amd64] http://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware
+deb [arch=arm64,amd64] http://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware
 EOF
 
 # Copy custom scripts first
@@ -61,17 +44,9 @@ if [ -d /etc/profile.d ]; then
 fi
 EOF
 
-# This is the main installation layer. All package installations, PPA additions,
-# and setup are done here to minimize layers and maximize build speed.
+# This is the main installation layer.
+# All package installations and setup are done here.
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    # Essentials for adding PPAs
-    software-properties-common \
-    gnupg \
-    # Add PPAs for fastfetch and Firefox ESR
-    && add-apt-repository ppa:zhangsongcui3371/fastfetch -y && \
-    # Update package lists again after adding PPAs
-    apt-get update && \
     # Install all packages in a single command
     apt-get install -y --no-install-recommends \
     # AMD64 Essential Libraries
@@ -160,8 +135,10 @@ RUN apt-get update && \
     ltrace \
     heimdall-flash \
     docker.io \
-    && apt-get purge -y gdm3 gnome-session gnome-shell whoopsie && \
-    apt-get autoremove -y
+    # Basic GPG support
+    gnupg \
+    && apt-get autoremove -y
+
 
 # Configure locales, environment, SSH, Docker, and user setup in a single layer
 RUN locale-gen en_US.UTF-8 && \
@@ -180,8 +157,8 @@ RUN locale-gen en_US.UTF-8 && \
     mkdir -p /etc/udev/rules.d && \
     echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", NAME="wlan%n"' > /etc/udev/rules.d/70-wlan.rules && \
     echo 'ACTION=="add", SUBSYSTEM=="usb", ATTR{authorized}=="0", ATTR{authorized}="1"' > /etc/udev/rules.d/70-usb-authorize.rules && \
-    # Remove default ubuntu user if it exists
-    deluser --remove-home ubuntu || true
+    # Remove default debian user if it exists
+    deluser --remove-home debian || true
 
 # Set up root's bashrc with first-run logic
 RUN echo '#!/bin/bash' > /root/.bashrc && \

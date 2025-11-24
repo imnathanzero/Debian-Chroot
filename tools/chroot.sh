@@ -6,14 +6,14 @@
 # --- Configuration and Global Variables ---
 
 # Use environment variable if set, otherwise use default path
-CHROOT_PATH="${CHROOT_PATH:-/data/local/ubuntu-chroot/rootfs}"
-ROOTFS_IMG="/data/local/ubuntu-chroot/rootfs.img"
+CHROOT_PATH="${CHROOT_PATH:-/data/local/debian-chroot/rootfs}"
+ROOTFS_IMG="/data/local/debian-chroot/rootfs.img"
 SCRIPT_NAME="$(basename "$0")"
 SCRIPT_DIR="$(dirname "$0")"
-C_HOSTNAME="ubuntu"
-MOUNTED_FILE="/data/local/ubuntu-chroot/mount.points"
-POST_EXEC_SCRIPT="/data/local/ubuntu-chroot/post_exec.sh"
-HOLDER_PID_FILE="/data/local/ubuntu-chroot/holder.pid"
+C_HOSTNAME="debian"
+MOUNTED_FILE="/data/local/debian-chroot/mount.points"
+POST_EXEC_SCRIPT="/data/local/debian-chroot/post_exec.sh"
+HOLDER_PID_FILE="/data/local/debian-chroot/holder.pid"
 SILENT=0
 SKIP_POST_EXEC=0
 CHROOT_SETUP_IN_PROGRESS=0

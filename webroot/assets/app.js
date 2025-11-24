@@ -1,7 +1,7 @@
 // Chroot Control UI - Real-time async execution with non-blocking interface
 (function(){
   // Use hardcoded paths provided by install.sh
-  const CHROOT_DIR = '/data/local/ubuntu-chroot';
+  const CHROOT_DIR = '/data/local/debian-chroot';
   const PATH_CHROOT_SH = `${CHROOT_DIR}/chroot.sh`;
   const CHROOT_PATH_UI = `${CHROOT_DIR}/rootfs`;
   const BOOT_FILE = `${CHROOT_DIR}/boot-service`;
@@ -1920,7 +1920,7 @@
     Storage.set('chroot_selected_user', selectedUser);
 
     // Use short command - symlink should exist when module is installed
-    const loginCommand = `su -c "ubuntu-chroot start ${selectedUser} -s"`;
+    const loginCommand = `su -c "debian-chroot start ${selectedUser} -s"`;
 
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(loginCommand).then(()=> appendConsole(`Login command for user '${selectedUser}' copied to clipboard`))
@@ -3208,7 +3208,7 @@
     saveDebugMode();
     updateDebugIndicator();
     if(debugModeActive){
-      appendConsole('Debug mode enabled. All scripts will now log to /data/logs/ubuntu-chroot/logs', 'warn');
+      appendConsole('Debug mode enabled. All scripts will now log to /data/logs/debian-chroot/logs', 'warn');
     } else {
       appendConsole('Debug mode disabled', 'info');
     }
