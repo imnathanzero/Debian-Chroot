@@ -1,6 +1,6 @@
 {
   "version": "v4.1.1",
-  "versionCode": 4101,
+  "versionCode": 4100,
   "zipUrl": "https://github.com/imnathanzero/Debian-Chroot/releases/download/v4.1.1/update-CLI.zip",
   "changelog": "https://raw.githubusercontent.com/imnathanzero/Debian-Chroot/main/CHANGELOG.md"
 }
