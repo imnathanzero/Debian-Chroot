@@ -33,7 +33,7 @@ DATE=$(date +%Y%m%d)
 if [ "$UPDATE_FLAG" = "--update" ]; then
     ZIP_NAME="out/update${SUFFIX}.zip"
 else
-    ZIP_NAME="out/Ubuntu-Chroot-${TAG}-${DATE}${SUFFIX}.zip"
+    ZIP_NAME="out/Debian-Chroot-${TAG}-${DATE}${SUFFIX}.zip"
 fi
 
 # Create output directory
@@ -60,7 +60,7 @@ cp "update${SUFFIX}.json" "$TMP_DIR/update.json"
 printf '%s\n' \
     "version=${TAG}" \
     "versionCode=${VERSION_CODE}" \
-    "updateJson=https://raw.githubusercontent.com/ravindu644/Ubuntu-Chroot/main/update${SUFFIX}.json" \
+    "updateJson=https://raw.githubusercontent.com/imnathanzero/Debian-Chroot/main/update${SUFFIX}.json" \
     >> "$TMP_DIR/module.prop"
 
 # Update update.json

@@ -1,10 +1,10 @@
 #!/system/bin/sh
 
-# Ubuntu Chroot Updater - Rewritten
+# Debian Chroot Updater - Based on Ubuntu-Chroot by ravindu644
 # Copyright (c) 2025 ravindu644
 
 # --- Configuration ---
-CHROOT_PATH="${CHROOT_PATH:-/data/local/ubuntu-chroot/rootfs}"
+CHROOT_PATH="${CHROOT_PATH:-/data/local/debian-chroot/rootfs}"
 CHROOT_DIR="$(dirname "$CHROOT_PATH")"
 VERSION_FILE="$CHROOT_DIR/version"
 OTA_DIR="$CHROOT_DIR/ota"
@@ -41,7 +41,7 @@ set_current_version() {
 }
 
 get_target_version() {
-    local module_prop="/data/adb/modules/ubuntu-chroot/module.prop"
+    local module_prop="/data/adb/modules/debian-chroot/module.prop"
     if [ -f "$module_prop" ]; then
         grep "^versionCode=" "$module_prop" | cut -d'=' -f2 || echo "0"
     else

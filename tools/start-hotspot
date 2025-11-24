@@ -11,8 +11,8 @@ DNS_SERVER1=$(getprop net.dns1)
 [ -z "$DNS_SERVER1" ] && DNS_SERVER1=8.8.8.8
 PHY_IFACE="wlan0"
 AP_IFACE="ap0"
-CHROOT_PATH="/data/local/ubuntu-chroot/rootfs"
-HOLDER_PID_FILE="/data/local/ubuntu-chroot/holder.pid"
+CHROOT_PATH="/data/local/debian-chroot/rootfs"
+HOLDER_PID_FILE="/data/local/debian-chroot/holder.pid"
 
 # Hotspot configuration variables (set via arguments or defaults)
 UPSTREAM_IFACE=""

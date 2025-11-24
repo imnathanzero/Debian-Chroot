@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Ubuntu Chroot Update Definitions
+# Debian Chroot Update Definitions
 # Each function defines an update that runs INSIDE the chroot with bash
 # Function name format: update_v{versionCode}
 # These functions are sourced by the updater script
@@ -114,18 +114,10 @@ EOF
     rm -rf /etc/apt/sources.list && \
     rm -rf /etc/apt/sources.list.d/*
 
-    cat > /etc/apt/sources.list << 'EOF'
-# For arm64 (native architecture)
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy main restricted universe multiverse
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-updates main restricted universe multiverse
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-backports main restricted universe multiverse
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ jammy-security main restricted universe multiverse
-
-# For amd64 (foreign architecture)
-deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
-deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse
-deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
-deb [arch=amd64] http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+    cat > /etc/apt/sources.list << 'EOF'  
+deb http://deb.debian.org/debian trixie main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware
+deb http://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware
 EOF
 
     echo "[UPDATER] Adding amd64 architecture..."
@@ -155,9 +147,9 @@ EOF
     apt-get autoremove -y && apt-get clean
 
     # Update post_exec.sh for binfmt-support
-    if ! grep -q "binfmt-support" /data/local/ubuntu-chroot/post_exec.sh 2>/dev/null; then
+    if ! grep -q "binfmt-support" /data/local/debian-chroot/post_exec.sh 2>/dev/null; then
         echo "[UPDATER] Updating post_exec.sh for binfmt-support..."
-        cat >> /data/local/ubuntu-chroot/post_exec.sh << 'EOF'
+        cat >> /data/local/debian-chroot/post_exec.sh << 'EOF'
 
 # Start binfmt service
 service binfmt-support start
@@ -249,10 +241,28 @@ update_v2520() {
         return 1
     fi
 
-    # Add udev rules for USB devices
-    echo "[UPDATER] Adding udev rules for USB access..."
-    cat > /etc/udev/rules.d/99-chroot.rules << 'EOF'
-SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", GROUP="plugdev"
+    if ! grep -q "udev" /data/local/debian-chroot/post_exec.sh; then
+        if ! echo -e '# Ugly hack to start the udev service\nservice udev restart > /dev/null 2>&1 &' >> /data/local/debian-chroot/post_exec.sh; then
+            error "Failed to update post_exec.sh for udev"
+            return 1
+        fi
+    fi
+
+    if ! run_in_chroot /bin/bash << 'EOF'
+#!/bin/bash
+SETUP_USER_FILE="/var/lib/.default-user"
+if [ -f "$SETUP_USER_FILE" ]; then
+    DEFAULT_USER=$(cat "$SETUP_USER_FILE" 2>/dev/null || echo '')
+    if [ -n "$DEFAULT_USER" ] && id "$DEFAULT_USER" >/dev/null 2>&1; then
+        echo "Adding user '$DEFAULT_USER' to plugdev group..."
+        if usermod -aG plugdev "$DEFAULT_USER"; then
+            echo "User '$DEFAULT_USER' added to plugdev group successfully"
+        else
+            echo "ERROR: Failed to add user '$DEFAULT_USER' to plugdev group"
+            exit 1
+        fi
+    fi
+fi
 EOF
 
     # Add default user to plugdev group if exists

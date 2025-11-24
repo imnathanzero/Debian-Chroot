@@ -7,14 +7,14 @@ set -e
 DATE=$(date +%Y%m%d)
 
 # Output filename
-OUTPUT_FILE="Ubuntu-24.04-rootfs-${DATE}-${VERSION}.tar.gz"
+OUTPUT_FILE="Debian-Trixie-rootfs-${DATE}-${VERSION}.tar.gz"
 
 # Install QEMU handlers for cross-platform builds
 docker run --privileged --rm tonistiigi/binfmt --install all
 
 # Create and use a new builder instance
-docker buildx create --name ubuntu-builder --use --driver docker-container || true
-docker buildx use ubuntu-builder
+docker buildx create --name debian-builder --use --driver docker-container || true
+docker buildx use debian-builder
 docker buildx inspect --bootstrap
 
 # Build the rootfs

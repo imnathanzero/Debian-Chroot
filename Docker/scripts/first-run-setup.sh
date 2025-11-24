@@ -33,7 +33,7 @@ fi
 # If setup not done yet, run the setup
 if [ ! -f "$SETUP_FLAG" ]; then
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "      Welcome to Ubuntu Chroot Environment"
+    echo "      Welcome to Debian Chroot Environment"
     echo "            First-time setup required"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
@@ -57,14 +57,14 @@ if [ ! -f "$SETUP_FLAG" ]; then
         break
     done
 
-    # Set hostname to ubuntu (instead of android)
-    hostname ubuntu 2>/dev/null || true
+    # Set hostname to Debian (instead of android)
+    hostname debian 2>/dev/null || true
     if [ -w /etc/hostname ]; then
-        echo "ubuntu" > /etc/hostname 2>/dev/null || true
+        echo "debian" > /etc/hostname 2>/dev/null || true
     fi
     if [ -w /etc/hosts ]; then
-        if ! grep -q "ubuntu" /etc/hosts 2>/dev/null; then
-            echo "127.0.1.1 ubuntu" >> /etc/hosts 2>/dev/null || true
+        if ! grep -q "debian" /etc/hosts 2>/dev/null; then
+            echo "127.0.1.1 debian" >> /etc/hosts 2>/dev/null || true
         fi
     fi
 

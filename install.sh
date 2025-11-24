@@ -11,15 +11,21 @@ POSTFSDATA=false
 LATESTARTSERVICE=true
 
 print_modname() {
-    echo "  _   _ _             _        "
-    echo " | | | | |__ _  _ _ _| |_ _  _ "
-    echo " | |_| | '_ | || | ' |  _| || |"
-    echo "  \___/|_.__/\_,_|_||_\__|\_,_|"
-    echo "  / __| |_  _ _ ___ ___| |_    "
-    echo " | (__| ' \| '_/ _ / _ |  _|   "
-    echo "  \___|_||_|_| \___\___/\__|   "
-    echo "                               "
-    echo "       by @ravindu644          "
+    echo "  _____         _      _                  "
+    echo " |  __ \       | |    (_)                 "
+    echo " | |  | |  ___ | |__   _   __ _  _ __     "
+    echo " | |  | | / _ \| '_ \ | | / _  || '_ \    "
+    echo " | |__| ||  __/| |_) || || (_| || | | |   "
+    echo " |_____/  \___||_.__/ |_| \__,_||_| |_|   "
+    echo "   _____  _                          _    "
+    echo "  / ____|| |                        | |   "
+    echo " | |     | |__   _ __   ___    ___  | |_  "
+    echo " | |     | '_ \ | '__| / _ \  / _ \ | __| "
+    echo " | |____ | | | || |   | (_) || (_) || |_  "
+    echo "  \_____||_| |_||_|    \___/  \___/  \__| "
+    echo "                                          "
+    echo "          based on Ubuntu-Chroot          "
+    echo "          by @ravindu644                  "
     echo " "
 }
 
@@ -52,13 +58,13 @@ set_permissions() {
     set_perm_recursive $MODPATH 0 0 0755 0644
 
     # Set permissions for chroot scripts
-    set_perm "/data/local/ubuntu-chroot/chroot.sh" 0 0 0755
-    set_perm "/data/local/ubuntu-chroot/post_exec.sh" 0 0 0755
-    set_perm "/data/local/ubuntu-chroot/start-hotspot" 0 0 0755
-    set_perm "/data/local/ubuntu-chroot/ota" 0 0 0755
-    set_perm "/data/local/ubuntu-chroot/ota/updater.sh" 0 0 0755
-    set_perm "/data/local/ubuntu-chroot/ota/updates.sh" 0 0 0755
-    set_perm "/data/local/ubuntu-chroot/sparsemgr.sh" 0 0 0755
+    set_perm "/data/local/debian-chroot/chroot.sh" 0 0 0755
+    set_perm "/data/local/debian-chroot/post_exec.sh" 0 0 0755
+    set_perm "/data/local/debian-chroot/start-hotspot" 0 0 0755
+    set_perm "/data/local/debian-chroot/ota" 0 0 0755
+    set_perm "/data/local/debian-chroot/ota/updater.sh" 0 0 0755
+    set_perm "/data/local/debian-chroot/ota/updates.sh" 0 0 0755
+    set_perm "/data/local/debian-chroot/sparsemgr.sh" 0 0 0755
 
     # Set permissions for module service script
     set_perm "$MODPATH/service.sh" 0 0 0755

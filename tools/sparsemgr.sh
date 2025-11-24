@@ -4,7 +4,7 @@
 # Usage: sparsemgr.sh [options] <command> [args]
 
 # Default configuration - can be overridden
-DEFAULT_CHROOT_DIR="/data/local/ubuntu-chroot"
+DEFAULT_CHROOT_DIR="/data/local/debian-chroot"
 CHROOT_DIR="${CHROOT_DIR:-$DEFAULT_CHROOT_DIR}"
 SCRIPT_NAME="$(basename "$0")"
 
@@ -172,13 +172,13 @@ create_sparse_image() {
     log "Formatting sparse image with ext4..."
     # Try mkfs.ext4 first, fallback to mke2fs
     if command -v mkfs.ext4 >/dev/null 2>&1; then
-        if ! mkfs.ext4 -F -L "ubuntu-chroot" "$img_path" 2>&1; then
+        if ! mkfs.ext4 -F -L "debian-chroot" "$img_path" 2>&1; then
             error "Failed to format sparse image with mkfs.ext4"
             busybox rm -f "$img_path"
             return 1
         fi
     elif command -v mke2fs >/dev/null 2>&1; then
-        if ! mke2fs -t ext4 -F -L "ubuntu-chroot" "$img_path" 2>&1; then
+        if ! mke2fs -t ext4 -F -L "debian-chroot" "$img_path" 2>&1; then
             error "Failed to format sparse image with mke2fs"
             busybox rm -f "$img_path"
             return 1
@@ -382,7 +382,7 @@ case "$1" in
         echo "  CHROOT_DIR=/custom/path $0 migrate 8"
         echo ""
         echo "Description:"
-        echo "  Migrates your existing Ubuntu chroot from a directory-based"
+        echo "  Migrates your existing Debian chroot from a directory-based"
         echo "  rootfs to a sparse ext4 image for better performance and"
         echo "  space efficiency."
         echo ""

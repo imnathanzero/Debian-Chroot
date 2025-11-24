@@ -19,7 +19,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build Ubuntu RootFS
+      - name: Build Debian RootFS
         run: |
           cd Docker
           VERSION="${{ github.event.inputs.version || github.ref_name }}" ./build.sh
@@ -29,7 +29,7 @@ jobs:
           # Get version
           VERSION="${{ github.event.inputs.version || github.ref_name }}"
           DATE=$(date +%Y%m%d)
-          ZIP_NAME="Ubuntu-Chroot-${VERSION}-${DATE}-GUI.zip"
+          ZIP_NAME="Debian-Chroot-${VERSION}-${DATE}-GUI.zip"
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
 
           # Clean the repository
@@ -52,8 +52,8 @@ jobs:
           artifacts: "${{ env.ZIP_NAME }}"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.event.inputs.version || github.ref_name }}-gui
-          name: "Ubuntu Chroot GUI ${{ github.event.inputs.version || github.ref_name }}"
+          name: "Debian Chroot GUI ${{ github.event.inputs.version || github.ref_name }}"
           body: |
-            Ubuntu Chroot Environment GUI ${{ github.event.inputs.version || github.ref_name }}
+            Debian chroot Environment GUI ${{ github.event.inputs.version || github.ref_name }}
 
-            Flashable KernelSU module for Ubuntu ARM64 chroot environment with GUI.
+            Flashable KernelSU module for Debian ARM64 chroot environment with GUI.
