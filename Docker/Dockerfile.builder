@@ -78,7 +78,6 @@ RUN apt-get update && \
     gzip \
     # System tools
     htop \
-    vim \
     nano \
     git \
     sudo \
@@ -97,30 +96,6 @@ RUN apt-get update && \
     iw \
     hostapd \
     isc-dhcp-server \
-    # C/C++ Development
-    build-essential \
-    gcc \
-    g++ \
-    gdb \
-    make \
-    cmake \
-    autoconf \
-    automake \
-    libtool \
-    pkg-config \
-    # File system tools
-    dosfstools \
-    exfatprogs \
-    btrfs-progs \
-    ntfs-3g \
-    xfsprogs \
-    jfsutils \
-    hfsprogs \
-    reiserfsprogs \
-    cryptsetup \
-    nilfs-tools \
-    udftools \
-    f2fs-tools \
     # Python Development
     python3 \
     python3-pip \
@@ -128,13 +103,6 @@ RUN apt-get update && \
     python3-venv \
     python-is-python3 \
     # Additional dev tools
-    clang \
-    llvm \
-    valgrind \
-    strace \
-    ltrace \
-    heimdall-flash \
-    docker.io \
     # Basic GPG support
     gnupg \
     && apt-get autoremove -y
