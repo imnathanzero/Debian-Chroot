@@ -1,6 +1,6 @@
 {
-  "version": "v4.1.1",
-  "versionCode": 4100,
-  "zipUrl": "https://github.com/imnathanzero/Debian-Chroot/releases/download/v4.1.1/update-GUI.zip",
+  "version": "dev",
+  "versionCode": 0,
+  "zipUrl": "https://github.com/imnathanzero/Debian-Chroot/releases/download/dev/update-GUI.zip",
   "changelog": "https://raw.githubusercontent.com/imnathanzero/Debian-Chroot/main/CHANGELOG.md"
 }
